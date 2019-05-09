@@ -1,4 +1,6 @@
 extends layout.pug
+include includes/command
+include includes/icon
 //- <!--suppress XmlUnboundNsPrefix, HtmlUnknownAttribute -->
 block content
   header.header
@@ -7,18 +9,17 @@ block content
     form(action="/command" method="POST")#encrypt.tab__content.tab__content--selected
       .panel
         span.panel__label() TV Controller
-        .panel__group
-          button.panel__input(title='TV on' name='command' value='tv on' type='submit')
-            svg(viewBox='0 0 8 8' width='24' height='24')
-              use(xlink:href='icons/open-iconic.svg#lock-unlocked')
-          button.panel__input(title='TV off' name='command' value='tv off' type='submit')
-            svg(viewbox='0 0 8 8' width='24' height='24')
-              use(xlink:href='icons/open-iconic.svg#lock-locked')
 
         .panel__group
-          button.panel__input(title='Chromecast' name='command' value='tv chromecast' type='submit').
+          +command('TV on', 'tv on')
+            +icon('lock-unlocked')
+          +command('TV off', 'tv off')
+            +icon('lock-locked')
+
+        .panel__group
+          +command('Chromecast', 'tv chromecast').
             Chromecast
-          button.panel__input(title='XBox' name='command' value='tv xbox' type='submit').
-            Xbox
-          button.panel__input(title='Raspberry' name='command' value='tv raspberry' type='submit').
+          +command('XBox', 'tv xbox').
+            XBox
+          +command('Raspberry', 'tv raspberry').
             Raspberry

@@ -32,6 +32,10 @@
   border: 2px #747474 solid;
 }
 
+.panel__input svg {
+  vertical-align: middle;
+}
+
 .panel__select {
   width: 80px;
 
@@ -60,6 +64,8 @@
   flex-direction: row;
 
   justify-content: flex-end;
+
+  padding-top: 5px;
 }
 
 .panel__group .panel__button {
