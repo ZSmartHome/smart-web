@@ -1,0 +1,28 @@
+{
+  "name": "@zeckson/smart-web",
+  "version": "0.0.1",
+  "description": "Smart Home Web Portal",
+  "main": "index.js",
+  "scripts": {
+    "lint": "tslint -p . -t verbose",
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeckson/smart-web.git"
+  },
+  "keywords": [
+    "smarthome",
+    "web"
+  ],
+  "author": "Evgenii Shchepotev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zeckson/smart-web/issues"
+  },
+  "homepage": "https://github.com/zeckson/smart-web#readme",
+  "devDependencies": {
+    "tslint": "5.16.0",
+    "typescript": "3.4.5"
+  }
+}
