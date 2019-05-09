@@ -2,10 +2,12 @@
   "name": "@zeckson/smart-web",
   "version": "0.0.1",
   "description": "Smart Home Web Portal",
-  "main": "index.js",
   "scripts": {
     "lint": "tslint -p . -t verbose",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "clean": "rm -rf build",
+    "make": "tsc -p . -outDir build",
+    "build": "npm run clean && npm run make"
   },
   "repository": {
     "type": "git",
@@ -24,5 +26,8 @@
   "devDependencies": {
     "tslint": "5.16.0",
     "typescript": "3.4.5"
+  },
+  "dependencies": {
+    "express": "4.16.4"
   }
 }
