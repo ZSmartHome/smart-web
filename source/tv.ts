@@ -18,8 +18,6 @@ const TvCommand: { [command: string]: string } = {
   xbox: `tx 4F:82:30:00`,
 };
 
-const keys = Object.keys(TvCommand).map((it) => it.toLowerCase());
-
 export const execute = async (input: string) => {
   const match = input.split(/\W+/);
   const command = match[1];
