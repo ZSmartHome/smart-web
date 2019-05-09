@@ -8,7 +8,7 @@
     "clean": "rm -rf build",
     "make": "tsc -p . -outDir build",
     "build": "npm run clean && npm run make",
-    "start": "npm run build && node build/server.js"
+    "start": "npm run build && node $NODE_DEBUG_OPTION build/server.js"
   },
   "repository": {
     "type": "git",
