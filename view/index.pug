@@ -1,6 +1,22 @@
-html
-  head
-    title= title
-    link(rel="stylesheet" type="text/css" href="css/style.css")
-  body
-    h1= message
+doctype html
+<!--suppress XmlUnboundNsPrefix, HtmlUnknownAttribute -->
+head xmlns:xlink=""
+  link(rel='shortcut icon' type='image/x-icon' href='favicon.ico')
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0')
+  meta(name='format-detection' content='telephone=no')
+  title= title
+  link(rel='stylesheet' type='text/css' href='css/style.css')
+header.header
+  h1.header__title= title
+main.container
+  form(action="/command" method="POST")#encrypt.tab__content.tab__content--selected
+    .panel
+      span.panel__label() TV Controller
+      .panel__group
+        button.panel__input(title='TV on' name='tv on' type='submit')
+          svg(viewBox='0 0 8 8' width='24' height='24')
+            use(xlink:href='icons/open-iconic.svg#lock-unlocked')
+        button.panel__input(title='TV off' name='tv suspend' type='submit')
+          svg(viewbox='0 0 8 8' width='24' height='24')
+            use(xlink:href='icons/open-iconic.svg#lock-locked')

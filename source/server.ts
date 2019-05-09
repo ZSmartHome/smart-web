@@ -9,7 +9,7 @@ app.set("view engine", "pug");
 app.use(express.static(path.join(__dirname, "../static")));
 
 app.get('/', function (req, res) {
-  res.render('index', { title: 'Hey', message: 'Hello there!' })
+  res.render('index', {title: 'SmartHome Web'})
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

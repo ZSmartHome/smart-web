@@ -1,0 +1,16 @@
+@import "panel.css";
+@import "header.css";
+
+.main {
+  margin: 0 auto;
+  width: 320px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 300px;
+}
+
+.header {
+  margin: 0 auto;
+}
