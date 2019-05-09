@@ -8,7 +8,8 @@
     "clean": "rm -rf build",
     "make": "tsc -p . -outDir build",
     "build": "npm run clean && npm run make",
-    "start": "npm run build && node $NODE_DEBUG_OPTION build/server.js"
+    "start": "npm run build && node $NODE_DEBUG_OPTION build/server.js",
+    "deploy": "pm2 deploy dev update"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/zeckson/smart-web#readme",
   "devDependencies": {
     "@types/express": "4.16.1",
+    "pm2": "3.5.0",
     "tslint": "5.16.0",
     "typescript": "3.4.5"
   },
