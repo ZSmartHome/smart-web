@@ -31,5 +31,5 @@ export const execute = async (input: string) => {
     throw new ExecutionError(`Unsupported command: ${command}`);
   }
 
-  return shell(`echo "${action}" | cec-client -s -d 1`);
+  return shell(`echo "${action}" | cec-client -o Raspberry -s -d 1`);
 };
