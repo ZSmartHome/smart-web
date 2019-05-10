@@ -33,7 +33,8 @@ app.post('/command', (req, res, next) => {
     handler(action)
       .then(() => res.redirect('/'))
       .catch((error) => next(error));
-
+  } else {
+    res.status(501).send(`Not Implemented`);
   }
 });
 
