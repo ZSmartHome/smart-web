@@ -12,26 +12,26 @@ const port = process.env.PORT || 3000;
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.set('views', path.join(__dirname, '../view'));
-app.set('view engine', 'pug');
-app.use(express.static(path.join(__dirname, '../static')));
+app.set(`views`, path.join(__dirname, `../view`));
+app.set(`view engine`, `pug`);
+app.use(express.static(path.join(__dirname, `../static`)));
 
-app.get('/', (req, res) => {
-  res.render('index', {title: 'SmartHome Web'});
+app.get(`/`, (req, res) => {
+  res.render(`index`, {title: `SmartHome Web`});
 });
 
 const commandMap: { [command: string]: (action: string) => Promise<any> } = {
   tv,
   light,
 };
-app.post('/command', (req, res, next) => {
+app.post(`/command`, (req, res, next) => {
   const input = req.body.command;
 
   const [command, action] = input.split(/\W+/);
   const handler = commandMap[command];
   if (handler) {
     handler(action)
-      .then(() => res.redirect('/'))
+      .then(() => res.redirect(`/`))
       .catch((error) => next(error));
   } else {
     res.status(501).send(`Not Implemented`);

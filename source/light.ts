@@ -11,8 +11,8 @@ const connectLamp = () => new Promise<Yeelight.Light>((success, fail) => {
 });
 
 const Option: { [command: string]: (light: Yeelight.Light) => Promise<any> } = {
-  on: (it) => it.set_power('on'),
-  off: (it) => it.set_power('off'),
+  on: (it) => it.set_power(`on`),
+  off: (it) => it.set_power(`off`),
   bright: (it) => it.set_bright(75),
   normal: (it) => it.set_bright(50),
   dark: (it) => it.set_bright(30),
