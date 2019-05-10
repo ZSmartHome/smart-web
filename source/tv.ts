@@ -1,5 +1,5 @@
 import {shell} from './util';
-import {ExecutionError} from './error';
+import {ExecutionError} from './errors/execution-error';
 
 /*
 # Switch on

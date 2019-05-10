@@ -2,6 +2,8 @@ import * as express from 'express';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
+import {execute} from './tv';
+import {errorHandler, errorNotFoundHandler} from './error-middleware';
 
 const app = express();
 const port = 3000;
@@ -17,11 +19,13 @@ app.get('/', (req, res) => {
   res.render('index', {title: 'SmartHome Web'});
 });
 
-import {execute} from './tv';
-app.post('/command', (req, res) => {
+app.post('/command', (req, res, next) => {
   execute(req.body.command)
     .then(() => res.redirect('/'))
-    .catch((error) => res.render('error', {message: error.message}));
+    .catch((error) => next(error));
 });
+
+app.use(errorNotFoundHandler);
+app.use(errorHandler);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

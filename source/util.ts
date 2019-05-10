@@ -1,5 +1,5 @@
 import {exec} from 'child_process';
-import {ExecutionError} from './error';
+import {ExecutionError} from './errors/execution-error';
 
 export const shell = (command: string): Promise<string> => {
   return new Promise((onSuccess, onFail) => {
