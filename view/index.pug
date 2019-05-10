@@ -12,7 +12,7 @@ block content
 
         .panel__group
           +command('TV on', 'tv on')
-            +icon('lock-unlocked')
+            +icon('lock-unlocked')(class="red")
           +command('TV off', 'tv off')
             +icon('lock-locked')
 
@@ -30,7 +30,7 @@ block content
 
         .panel__group
           +command('Light on', 'light on')
-            +icon('lightbulb')
+            +icon('lightbulb')(class="red")
           +command('Light off', 'light off')
             +icon('lightbulb')
 

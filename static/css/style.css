@@ -14,3 +14,7 @@
 .header {
   margin: 0 auto;
 }
+
+.red {
+  fill: red;
+}
