@@ -1,8 +1,9 @@
 import * as Yeelight from 'yeelight2';
 import {ExecutionError} from './errors/execution-error';
 
+const LAMP_TIMEOUT = 2000;
 const connectLamp = () => new Promise<Yeelight.Light>((success, fail) => {
-  const timer = setTimeout(() => fail(new ExecutionError(`Couldn't find lamp in 2000ms`)), 2000);
+  const timer = setTimeout(() => fail(new ExecutionError(`Couldn't find lamp in ${LAMP_TIMEOUT}ms`)), LAMP_TIMEOUT);
   Yeelight.discover(function (myLight) {
     this.close();
     clearTimeout(timer);
