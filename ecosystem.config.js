@@ -8,7 +8,15 @@ module.exports = {
     // First application
     {
       name: 'SmartHome Web',
-      script: 'build/server.js'
+      script: 'build/server.js',
+      watch: true,
+      env: {
+        NODE_ENV: 'development',
+        PORT: 80
+      },
+      env_production: {
+        NODE_ENV: 'production'
+      }
     }
   ],
 

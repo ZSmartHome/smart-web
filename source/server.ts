@@ -6,7 +6,7 @@ import {execute} from './tv';
 import {errorHandler, errorNotFoundHandler} from './error-middleware';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
