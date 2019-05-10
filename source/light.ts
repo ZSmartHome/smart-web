@@ -32,5 +32,8 @@ export const execute = async (command: string): Promise<string> => {
 
   const lamp = await connectLamp();
 
-  return action(lamp);
+  return action(lamp).then((it) => {
+    lamp.exit();
+    return it;
+  });
 };
