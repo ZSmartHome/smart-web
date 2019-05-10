@@ -18,9 +18,7 @@ const TvCommand: { [command: string]: string } = {
   xbox: `tx 4F:82:30:00`,
 };
 
-export const execute = async (input: string) => {
-  const match = input.split(/\W+/);
-  const command = match[1];
+export const execute = async (command: string) => {
   if (!command) {
     throw new ExecutionError(`What should I do with TV?`);
   }

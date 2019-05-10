@@ -2,7 +2,8 @@ import * as express from 'express';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
-import {execute} from './tv';
+import {execute as tv} from './tv';
+import {execute as light} from './light';
 import {errorHandler, errorNotFoundHandler} from './error-middleware';
 
 const app = express();
@@ -19,10 +20,21 @@ app.get('/', (req, res) => {
   res.render('index', {title: 'SmartHome Web'});
 });
 
+const commandMap: { [command: string]: (action: string) => Promise<any> } = {
+  tv,
+  light,
+};
 app.post('/command', (req, res, next) => {
-  execute(req.body.command)
-    .then(() => res.redirect('/'))
-    .catch((error) => next(error));
+  const input = req.body.command;
+
+  const [command, action] = input.split(/\W+/);
+  const handler = commandMap[command];
+  if (handler) {
+    handler(action)
+      .then(() => res.redirect('/'))
+      .catch((error) => next(error));
+
+  }
 });
 
 app.use(errorNotFoundHandler);

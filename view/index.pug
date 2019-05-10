@@ -6,7 +6,7 @@ block content
   header.header
     h1.header__title= title
   main.container
-    form(action="/command" method="POST")#encrypt.tab__content.tab__content--selected
+    form(action="/command" method="POST")#tvset.tab__content.tab__content--selected
       .panel
         span.panel__label() TV Controller
 
@@ -23,3 +23,14 @@ block content
             XBox
           +command('Raspberry', 'tv raspberry').
             Raspberry
+
+    form(action="/command" method="POST")#ligthcontroller.tab__content.tab__content--selected
+      .panel
+        span.panel__label() Light Controller
+
+        .panel__group
+          +command('Light on', 'light on')
+            +icon('lightbulb')
+          +command('Light off', 'light off')
+            +icon('lightbulb')
+
