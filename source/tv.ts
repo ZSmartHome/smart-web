@@ -11,7 +11,7 @@ import {ExecutionError} from './errors/execution-error';
 */
 const TvCommand: { [command: string]: string } = {
   on: `on 0`,
-  off: `standby 0`,
+  off: `tx 4F:36`,
 
   chromecast: `tx 4F:82:10:00`,
   raspberry: `tx 4F:82:20:00`,
