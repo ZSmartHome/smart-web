@@ -9,6 +9,10 @@ import {errorHandler, errorNotFoundHandler} from './error-middleware';
 const app = express();
 const port = process.env.PORT || 3000;
 
+process.on(`uncaughtException`, (e: object) => {
+  console.error(`Uncaught: ${e.toString()}`);
+});
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}));
 
