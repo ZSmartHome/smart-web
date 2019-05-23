@@ -18,7 +18,6 @@
 }
 
 .panel__input {
-  width: 100%;
   height: 50px;
 
   display: inline;
@@ -30,7 +29,11 @@
   font-weight: normal;
   line-height: 1.3em;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
+
   border: 2px #747474 solid;
+  padding: 2px;
 }
 
 .panel__input svg {
