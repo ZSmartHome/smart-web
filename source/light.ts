@@ -14,12 +14,13 @@ const connectLamp = () => new Promise<Yeelight.Light>((success, fail) => {
 const Option: { [command: string]: (light: Yeelight.Light) => Promise<any> } = {
   on: (it) => it.set_power(`on`),
   off: (it) => it.set_power(`off`),
-  bright: (it) => it.set_bright(75),
+  bright: (it) => it.set_bright(100),
   normal: (it) => it.set_bright(50),
-  dark: (it) => it.set_bright(30),
+  dark: (it) => it.set_bright(25),
   red: (it) => it.set_rgb(0xFF0000),
   blue: (it) => it.set_rgb(0x0000FF),
   green: (it) => it.set_rgb(0x00FF00),
+  white: (it) => it.set_rgb(0xFFFFFF),
 };
 
 export const execute = async (command: string): Promise<string> => {
