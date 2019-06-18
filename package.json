@@ -9,6 +9,7 @@
     "make": "tsc -p . -outDir build",
     "build": "npm run clean && npm run make",
     "start": "npm run build && node $NODE_DEBUG_OPTION build/server.js",
+    "dns-flush": "sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder",
     "deploy": "pm2 deploy dev update"
   },
   "repository": {
