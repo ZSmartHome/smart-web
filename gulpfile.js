@@ -7,6 +7,7 @@ const paths = {
   icons: {
     src: [
       'node_modules/@fortawesome/fontawesome-free/svgs/solid/power-off.svg',
+      'node_modules/@fortawesome/fontawesome-free/svgs/solid/lightbulb.svg',
     ],
     dest: 'static/icons/'
   }

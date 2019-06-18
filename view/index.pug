@@ -12,9 +12,9 @@ block content
 
         .panel__group
           +command('TV on', 'tv on')
-            +icon('lock-unlocked')(class="red")
+            +icon('power-off')(style="fill: green")
           +command('TV off', 'tv off')
-            +icon('lock-locked')
+            +icon('power-off')(style="fill: red")
 
         .panel__group
           +command('Chromecast', 'tv chromecast').
@@ -30,7 +30,7 @@ block content
 
         .panel__group
           +command('Light on', 'light on')
-            +icon('lightbulb')(class="red")
+            +icon('lightbulb')(style="fill: red")
           +command('Light off', 'light off')
             +icon('lightbulb')
 
