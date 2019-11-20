@@ -35,7 +35,7 @@ app.post(`/command`, (req, res, next) => {
   const handler = commandMap[command];
   if (handler) {
     handler(action)
-      .then(() => res.redirect(`/`))
+      .then(() => res.redirect(303, `/`))
       .catch((error) => next(error));
   } else {
     res.status(501).send(`Not Implemented`);
