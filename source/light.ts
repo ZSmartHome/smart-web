@@ -1,7 +1,20 @@
 import * as Yeelight from 'yeelight2';
 import {ExecutionError} from './errors/execution-error';
 
-interface Option { [command: string]: (light: Yeelight.Light) => Promise<any>; }
+interface Option {
+  [command: string]: (light: Yeelight.Light) => Promise<any>;
+}
+
+// Default yellow not very bright light
+const DEFAULT_STATE = {
+  power: `on`,
+  bright: 100,
+  color_mode: 2,
+  ct: 2429,
+  rgb: 16514957,
+  hue: 62,
+  sat: 44,
+};
 
 const LAMP_TIMEOUT = 2000;
 const connectLamp = () => new Promise<Yeelight.Light>((success, fail) => {
