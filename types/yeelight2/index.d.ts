@@ -1,3 +1,4 @@
+// @docs https://www.typescriptlang.org/docs/handbook/modules.html#ambient-modules
 declare module "yeelight2" {
 
   /**
