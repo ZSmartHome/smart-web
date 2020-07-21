@@ -1,5 +1,9 @@
 declare module "yeelight2" {
 
+  /**
+   * [Yeelight description]
+   * @docs http://www.yeelight.com/download/Yeelight_Inter-Operation_Spec.pdf
+   */
   namespace Yeelight {
     /**
      * support two values: "sudden" and "smooth". If effect is "sudden",
@@ -22,6 +26,8 @@ declare module "yeelight2" {
       toggle(): void
 
       set_power(mode: 'on' | 'off', effect?: Effect, duration?: Duration): Promise<any>
+
+      set_default(): Promise<any>
 
       /**
        * set_rgb This method is used to change the color of a smart LED.

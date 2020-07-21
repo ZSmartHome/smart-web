@@ -1,6 +1,8 @@
 import * as Yeelight from 'yeelight2';
 import {ExecutionError} from './errors/execution-error';
 
+interface Option { [command: string]: (light: Yeelight.Light) => Promise<any>; }
+
 const LAMP_TIMEOUT = 2000;
 const connectLamp = () => new Promise<Yeelight.Light>((success, fail) => {
   const timer = setTimeout(() => fail(new ExecutionError(`Couldn't find lamp in ${LAMP_TIMEOUT}ms`)), LAMP_TIMEOUT);
@@ -11,7 +13,7 @@ const connectLamp = () => new Promise<Yeelight.Light>((success, fail) => {
   });
 });
 
-const Option: { [command: string]: (light: Yeelight.Light) => Promise<any> } = {
+const Option: Option = {
   on: (it) => it.set_power(`on`),
   off: (it) => it.set_power(`off`),
   bright: (it) => it.set_bright(100),
@@ -34,7 +36,7 @@ export const execute = async (command: string): Promise<string> => {
 
   const lamp = await connectLamp();
 
-  return action(lamp).then((it) => {
+  return action(lamp).then(() => lamp.set_default()).then((it) => {
     lamp.exit();
     return it;
   });
