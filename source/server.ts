@@ -2,8 +2,7 @@ import * as express from 'express';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
-import {execute as tv} from './tv';
-import {execute as light} from './light';
+import {tv, light} from '@ZSmartHome/command-core';
 import {errorHandler, errorNotFoundHandler} from './error-middleware';
 
 const app = express();
