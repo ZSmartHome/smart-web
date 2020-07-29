@@ -2,8 +2,9 @@ import * as express from 'express';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
-import {light, lightCommands, tv, tvCommands} from '@zsmarthome/command-core';
+import {light, lightCommands, split, tv, tvCommands} from '@zsmarthome/command-core';
 import {errorHandler, errorNotFoundHandler} from './error-middleware';
+import {Command} from '@zsmarthome/command-core/build/commands/option';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,25 +20,24 @@ app.set(`views`, path.join(__dirname, `../view`));
 app.set(`view engine`, `pug`);
 app.use(express.static(path.join(__dirname, `../static`)));
 
+const commandMap: { [command: string]: { name: string, commands: Command<any>[][], action: (action: string) => Promise<any> } } = {
+  tv: {name: `TV Controller`, action: tv, commands: split(Object.values(tvCommands), 2, 3, 3)},
+  light: {name: `Light Controller`, action: light, commands: split(Object.values(lightCommands), 2, 3, 4)},
+};
+
 app.get(`/`, (req, res) => {
   res.render(`index`, {
     title: `SmartHome Web`,
-    controller: {
-      'TV Controller': tvCommands,
-      'Light Controller': lightCommands
-    }
+    controller: commandMap
   });
 });
 
-const commandMap: { [command: string]: (action: string) => Promise<any> } = {
-  tv,
-  light,
-};
 app.post(`/command`, (req, res, next) => {
   const input = req.body.command;
 
   const [command, action] = input.split(/\W+/);
-  const handler = commandMap[command];
+  const executor = commandMap[command];
+  const handler = executor && executor.action;
   if (handler) {
     handler(action)
       .then(() => res.redirect(303, `/`))

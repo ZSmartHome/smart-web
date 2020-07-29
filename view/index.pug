@@ -7,62 +7,24 @@ block content
   header.header
     h1.header__title= title
   main.container
-    each commands, label in controller
-      +panel(label)(id='tvset')
-        each it, command in commands
-          .panel__group
-            +command(it.description, `tv ${command}`)
-              case command
-                when 'on'
-                  +icon('power-off')(style="fill: green")
-                when 'off'
-                  +icon('power-off')(style="fill: red")
-                default
-                  =it.label
+    each it, command in controller
+      +panel(it.name)(id=it.name)
+         each group in it.commands
+           .panel__group
+             each it in group
+               // noinspection JSUnusedLocalSymbols const
+               -const myCommand = `${command} ${it.command}`
+               +command(it.description, myCommand)
+                 case myCommand
+                   when 'tv on'
+                     +icon('power-off')(style="fill: green")
+                   when 'tv off'
+                     +icon('power-off')(style="fill: red")
 
-    form(action="/command" method="POST")#tvset.tab__content.tab__content--selected
-      .panel
-        span.panel__label() TV Controller
+                   when 'light on'
+                     +icon('lightbulb')(style="fill: red")
+                   when 'light off'
+                     +icon('lightbulb')
 
-        .panel__group
-          +command('TV on', 'tv on')
-            +icon('power-off')(style="fill: green")
-          +command('TV off', 'tv off')
-            +icon('power-off')(style="fill: red")
-
-        .panel__group
-          +command('Chromecast', 'tv chromecast').
-            Chromecast
-          +command('HDMI', 'tv hdmi').
-            HDMI
-          +command('Raspberry', 'tv raspberry').
-            Raspberry
-
-    form(action="/command" method="POST")#ligthcontroller.tab__content.tab__content--selected
-      .panel
-        span.panel__label() Light Controller
-
-        .panel__group
-          +command('Light on', 'light on')
-            +icon('lightbulb')(style="fill: red")
-          +command('Light off', 'light off')
-            +icon('lightbulb')
-
-        .panel__group
-          +command('Red', 'light red').
-            Red
-          +command('Green', 'light green').
-            Green
-          +command('Blue', 'light blue').
-            Blue
-          +command('White', 'light white').
-            White
-
-        .panel__group
-          +command('Bright', 'light bright').
-            Bright
-          +command('Normal', 'light normal').
-            Normal
-          +command('Dark', 'light dark').
-            Dark
-
+                   default
+                     =it.label
