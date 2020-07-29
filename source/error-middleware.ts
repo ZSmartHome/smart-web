@@ -13,7 +13,14 @@ export const errorHandler = (err: ExecutionError | WebError, req: Request, res: 
 
   // render the error page
   res.status((err as WebError).code || HTTP_INTERNAL_SERVER_ERROR);
-  res.render(`error`, {title: err.name, message: err.message});
+  const error = {title: err.name, message: err.message};
+  // noinspection JSUnreachableSwitchBranches
+  switch (req.accepts([`html`, `json`])) {
+    case `json`:
+      return res.json({status: `Error`, ...error});
+    default:
+      return res.render(`error`, error);
+  }
 };
 
 export const errorNotFoundHandler = (req: Request, res: Response, next: NextFunction) => {

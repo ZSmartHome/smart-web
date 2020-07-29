@@ -1,10 +1,12 @@
 import * as express from 'express';
+import {Request} from 'express';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
 import {light, lightCommands, split, tv, tvCommands} from '@zsmarthome/command-core';
 import {errorHandler, errorNotFoundHandler} from './error-middleware';
 import {Command} from '@zsmarthome/command-core/build/commands/option';
+import {WebError} from './errors/web-error';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -32,7 +34,15 @@ app.get(`/`, (req, res) => {
   });
 });
 
+const acceptsHtmlOrJSON = (req: Request) => {
+  if (!req.accepts([`html`, `json`])) {
+    throw new WebError(406, `Not Acceptable`);
+  }
+}
+
 app.post(`/command`, (req, res, next) => {
+  acceptsHtmlOrJSON(req);
+
   const input = req.body.command;
 
   const [command, action] = input.split(/\W+/);
@@ -40,10 +50,21 @@ app.post(`/command`, (req, res, next) => {
   const handler = executor && executor.action;
   if (handler) {
     handler(action)
-      .then(() => res.redirect(303, `/`))
+      .then(() => {
+        // noinspection JSUnreachableSwitchBranches
+        switch (req.accepts([`html`, `json`])) {
+          case `json`:
+            return res.status(200).json({status: `Success`});
+          case `html`:
+            return res.redirect(303, `/`);
+          default:
+            throw new WebError(406, `Not Acceptable`);
+        }
+      })
       .catch((error) => next(error));
+
   } else {
-    res.status(501).send(`Not Implemented`);
+    throw new WebError(501, `Not Implemented`);
   }
 });
 
