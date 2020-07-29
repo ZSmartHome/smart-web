@@ -3,31 +3,48 @@
 const sendCommand = (data) => fetch(`/command`, {
   method: `POST`,
   headers: {
-    'Accepts': 'application/json'
+    'Accepts': `application/json`
   },
   body: data
+}).then((resp) => {
+  if (resp.ok) {
+    return resp;
+  }
+  throw resp;
 });
 
-const listenOn = (target = window, regexp, listener) => {
-  Object.keys(target).forEach(key => {
-    if (regexp.test(key)) {
-      window.addEventListener(key.slice(2), listener);
-    }
-  });
+const onResponse = async (e) => {
+  console.log(e);
+  console.log(await e.text());
+  debugger;
 }
 
-listenOn(window, /^on(?!(mouse|pointer))/, (it) => console.log(it.type));
+const onFail = (e) => {
+  console.error(e);
+  if (typeof e.ok === `boolean`) {
+    // Got response with code > 200
+    // handle
+    const contentType = e.headers.get('content-type');
+    console.error(`Got content-type: ${contentType}`);
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new TypeError("Oops, we haven't got JSON!");
+    }
+  } else {
+    // Handle other case
+  }
 
+}
 
 const forms = document.querySelectorAll(`form`);
 for (const form of forms) {
   window.formdata.listen(form, ({submitter}) => {
     submitter.disabled = true;
+    const enable = () => submitter.disabled = false;
+
     const data = new URLSearchParams();
     data.append(submitter.name, submitter.value);
-    const enable = () => submitter.disabled = false;
     sendCommand(data)
-      .then((it) => console.log(it))
-      .then(enable).catch(enable);
+      .then(onResponse)
+      .catch(onFail).then(enable);
   })
 }
