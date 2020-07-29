@@ -1,0 +1,6 @@
+mixin panel(title)
+  form(action="/command" method="POST")&attributes(attributes).tab__content.tab__content--selected
+    .panel
+      span.panel__label()= title
+
+      block

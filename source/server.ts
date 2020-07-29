@@ -2,7 +2,7 @@ import * as express from 'express';
 import * as path from 'path';
 
 import * as bodyParser from 'body-parser';
-import {tv, light} from '@zsmarthome/command-core';
+import {light, lightCommands, tv, tvCommands} from '@zsmarthome/command-core';
 import {errorHandler, errorNotFoundHandler} from './error-middleware';
 
 const app = express();
@@ -20,7 +20,13 @@ app.set(`view engine`, `pug`);
 app.use(express.static(path.join(__dirname, `../static`)));
 
 app.get(`/`, (req, res) => {
-  res.render(`index`, {title: `SmartHome Web`});
+  res.render(`index`, {
+    title: `SmartHome Web`,
+    controller: {
+      'TV Controller': tvCommands,
+      'Light Controller': lightCommands
+    }
+  });
 });
 
 const commandMap: { [command: string]: (action: string) => Promise<any> } = {

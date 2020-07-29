@@ -1,11 +1,25 @@
 extends layout.pug
 include includes/command
+include includes/panel
 include includes/icon
 //- <!--suppress XmlUnboundNsPrefix, HtmlUnknownAttribute -->
 block content
   header.header
     h1.header__title= title
   main.container
+    each commands, label in controller
+      +panel(label)(id='tvset')
+        each it, command in commands
+          .panel__group
+            +command(it.description, `tv ${command}`)
+              case command
+                when 'on'
+                  +icon('power-off')(style="fill: green")
+                when 'off'
+                  +icon('power-off')(style="fill: red")
+                default
+                  =it.label
+
     form(action="/command" method="POST")#tvset.tab__content.tab__content--selected
       .panel
         span.panel__label() TV Controller
