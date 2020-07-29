@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from 'express';
 import {WebError} from './errors/web-error';
-import {ExecutionError} from '@ZSmartHome/command-core';
+import {ExecutionError} from '@zsmarthome/command-core';
 
 const HTTP_NOT_FOUND_ERROR = 404;
 const HTTP_INTERNAL_SERVER_ERROR = 500;
@@ -12,8 +12,7 @@ export const errorHandler = (err: ExecutionError | WebError, req: Request, res: 
   res.locals.error = req.app.get(`env`) === `development` ? err : {};
 
   // render the error page
-  // @ts-expect-error
-  res.status(err.code || HTTP_INTERNAL_SERVER_ERROR);
+  res.status((err as WebError).code || HTTP_INTERNAL_SERVER_ERROR);
   res.render(`error`, {title: err.name, message: err.message});
 };
 
