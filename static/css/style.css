@@ -8,14 +8,9 @@ h1 {
   font-variant: small-caps;
 }
 
-.main {
+main {
   margin: 0 auto;
-  width: 320px;
-}
-
-.container {
-  margin: 0 auto;
-  width: 300px;
+  width: 360px;
 }
 
 .header {

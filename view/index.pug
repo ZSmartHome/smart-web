@@ -6,7 +6,7 @@ include includes/icon
 block content
   header.header
     h1.header__title= title
-  main.container
+  main
     each it, command in controller
       +panel(it.name)(id=it.name)
          each group in it.commands
