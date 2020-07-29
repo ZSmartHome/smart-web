@@ -1,0 +1,40 @@
+.status {
+  width: 320px;
+  min-height: 50px;
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin: 0 auto;
+
+  text-align: center;
+
+  display: none;
+}
+
+.status__content {
+  position: relative;
+  left: -50%;
+
+  background-color: white;
+
+  border-left: 2px;
+  border-right: 2px;
+  border-bottom: 2px;
+  border: #747474 solid;
+}
+
+.status--slide {
+  display: block;
+  animation-delay: 5s;
+  animation: slide 5s;
+}
+
+@keyframes slide {
+  from {
+    top: 0;
+  }
+  to {
+    top: -100%;
+  }
+}

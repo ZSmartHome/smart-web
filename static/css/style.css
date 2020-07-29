@@ -1,5 +1,12 @@
 @import "panel.css";
 @import "header.css";
+@import "status.css";
+
+h1 {
+  font-family: "Mono", monospace;
+  font-size: 30px;
+  font-variant: small-caps;
+}
 
 .main {
   margin: 0 auto;
