@@ -3,13 +3,10 @@
 const sendCommand = (data) => fetch(`/command`, {
   method: `POST`,
   headers: {
-    'Accepts': 'application/json',
-    'Content-Type': 'application/json'
+    'Accepts': 'application/json'
   },
   body: data
-})
-  .then((it) => console.log(it))
-  .catch((it) => console.error(it));
+});
 
 const listenOn = (target = window, regexp, listener) => {
   Object.keys(target).forEach(key => {
@@ -26,9 +23,11 @@ const forms = document.querySelectorAll(`form`);
 for (const form of forms) {
   window.formdata.listen(form, ({submitter}) => {
     submitter.disabled = true;
-    const data = new FormData();
+    const data = new URLSearchParams();
     data.append(submitter.name, submitter.value);
     const enable = () => submitter.disabled = false;
-    sendCommand(data).then(enable).catch(enable);
+    sendCommand(data)
+      .then((it) => console.log(it))
+      .then(enable).catch(enable);
   })
 }
