@@ -3,32 +3,25 @@
 const sendCommand = (data) => fetch(`/command`, {
   method: `POST`,
   headers: {
-    'Accepts': `application/json`
+    'Accept': `application/json`
   },
   body: data
-}).then((resp) => {
+}).then(async (resp) => {
   if (resp.ok) {
-    return resp;
+    return resp.json();
   }
-  throw resp;
+  throw await resp.json();
 });
 
-const onResponse = async (e) => {
-  console.log(e);
-  console.log(await e.text());
-  debugger;
+const onSuccess = async (data) => {
+  console.log(data);
 }
 
 const onFail = (e) => {
-  console.error(e);
-  if (typeof e.ok === `boolean`) {
-    // Got response with code > 200
+  if (e.status === `Error`) {
+    // Error is valid error from server
     // handle
-    const contentType = e.headers.get('content-type');
-    console.error(`Got content-type: ${contentType}`);
-    if (!contentType || !contentType.includes('application/json')) {
-      throw new TypeError("Oops, we haven't got JSON!");
-    }
+    console.error(e);
   } else {
     // Handle other case
   }
@@ -44,7 +37,7 @@ for (const form of forms) {
     const data = new URLSearchParams();
     data.append(submitter.name, submitter.value);
     sendCommand(data)
-      .then(onResponse)
+      .then(onSuccess)
       .catch(onFail).then(enable);
   })
 }
