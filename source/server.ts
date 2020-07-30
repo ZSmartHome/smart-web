@@ -22,7 +22,9 @@ app.set(`views`, path.join(__dirname, `../view`));
 app.set(`view engine`, `pug`);
 app.use(express.static(path.join(__dirname, `../static`)));
 
-const commandMap: { [command: string]: { name: string, commands: Command<any>[][], action: (action: string) => Promise<any> } } = {
+type Action = (action: string) => Promise<any>;
+type Buttons = Array<Array<Command<any>>>;
+const commandMap: { [command: string]: { name: string, commands: Buttons, action: Action } } = {
   tv: {name: `TV Controller`, action: tv, commands: split(Object.values(tvCommands), 2, 3, 3)},
   light: {name: `Light Controller`, action: light, commands: split(Object.values(lightCommands), 2, 3, 4)},
 };
@@ -30,7 +32,7 @@ const commandMap: { [command: string]: { name: string, commands: Command<any>[][
 app.get(`/`, (req, res) => {
   res.render(`index`, {
     title: `SmartHome Web`,
-    controller: commandMap
+    controller: commandMap,
   });
 });
 
@@ -38,7 +40,7 @@ const acceptsHtmlOrJSON = (req: Request) => {
   if (!req.accepts([`html`, `json`])) {
     throw new WebError(406, `Not Acceptable`);
   }
-}
+};
 
 app.post(`/command`, (req, res, next) => {
   acceptsHtmlOrJSON(req);
