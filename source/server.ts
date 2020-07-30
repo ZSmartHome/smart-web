@@ -23,10 +23,11 @@ app.set(`view engine`, `pug`);
 app.use(express.static(path.join(__dirname, `../static`)));
 
 type Action = (action: string) => Promise<any>;
-type Buttons = Array<Array<Command<any>>>;
-const commandMap: { [command: string]: { name: string, commands: Buttons, action: Action } } = {
-  tv: {name: `TV Controller`, action: tv, commands: split(Object.values(tvCommands), 2, 3, 3)},
-  light: {name: `Light Controller`, action: light, commands: split(Object.values(lightCommands), 2, 3, 4)},
+type ButtonsArray = Array<Array<Command<any>>>;
+
+const commandMap: { [command: string]: { name: string, buttons: ButtonsArray, action: Action } } = {
+  tv: {name: `TV Controller`, action: tv, buttons: split(Object.values(tvCommands), 2, 3, 3)},
+  light: {name: `Light Controller`, action: light, buttons: split(Object.values(lightCommands), 2, 3, 4)},
 };
 
 app.get(`/`, (req, res) => {

@@ -9,7 +9,7 @@ block content
   main
     each it, command in controller
       +panel(it.name)(id=it.name)
-         each group in it.commands
+         each group in it.buttons
            .panel__group
              each it in group
                // noinspection JSUnusedLocalSymbols const
