@@ -5,8 +5,8 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import {light, lightCommands, split, tv, tvCommands} from '@zsmarthome/command-core';
 import {errorHandler, errorNotFoundHandler} from './error-middleware';
-import {Command} from '@zsmarthome/command-core/build/commands/option';
 import {WebError} from './errors/web-error';
+import {Command} from '@zsmarthome/command-core/build/executor/command';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -23,7 +23,7 @@ app.set(`view engine`, `pug`);
 app.use(express.static(path.join(__dirname, `../static`)));
 
 type Action = (action: string) => Promise<any>;
-type ButtonsArray = Array<Array<Command<any>>>;
+type ButtonsArray = Command[][];
 
 const commandMap: { [command: string]: { name: string, buttons: ButtonsArray, action: Action } } = {
   tv: {name: `TV Controller`, action: tv, buttons: split(Object.values(tvCommands), 2, 3, 3)},
