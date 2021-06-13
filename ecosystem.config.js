@@ -31,7 +31,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'https://github.com/zeckson/smart-web.git',
       path: '/home/pi/smart-web',
-      'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env dev'
+      'post-deploy': 'npm ci && npm run build && pm2 reload ecosystem.config.js --env dev'
     }
   }
 };
